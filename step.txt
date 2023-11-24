@@ -1,0 +1,51 @@
+Step 1
+Download starter Templete
+https://github.com/startbootstrap/startbootstrap-clean-blog/archive/gh-pages.zip
+
+Step 2 [Project Name]
+Copy All startbootstrap templete in < ui > folder
+setup NodeJS [
+    npm init -y
+    intall Express
+    initialize Express {app = express()}
+    Create Server
+
+    Install nodemon
+    setup Npm Start
+]
+
+Step 3 [pages, public]
+Setup Routing {app.get()}
+Setup Public Folder for static asset
+Resolve Path
+
+Step 4 [views]
+use Templete Engine [why?]
+now Set Templete Engine Installation -> "app.set('views',`${__dirname}/views`)"
+
+Step 5 [database, model] (MongoDB Setup)
+Download MongoDB.exe and MongoDB Compass (for UI)
+install NPM Mongoose then set up Installation
+Create Folder Database>model> file.js
+    file.js [any name]
+    setup schemas [what?]
+
+Step 6 [create, find, findby word]
+create test.js and follow create model steps
+'{ $regex: /test/i }'
+
+Step 6
+create page [/post/new]
+fix: Static assest '/'
+make a form with name attribute same as schemas
+then route app.post('/posts/store')
+
+Step 6 [Body-Parser]
+npm body parser
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({extended:true}))
+
+now capture data from form and put in mongoDB
+
+
+Step 7 [Display Post means data fro db]
