@@ -2,6 +2,8 @@
 
 This is a simple blog application built using Node.js, Express, and MongoDB.
 
+![Alt text](image.png)
+
 ## Table of Contents
 
 - [Introduction](#introduction)
