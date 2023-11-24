@@ -3,6 +3,8 @@
 This is a simple blog application built using Node.js, Express, and MongoDB.
 
 ![Alt text](image.png)
+![image](https://github.com/itisdanish/Node-Express-Mongo-blog/assets/65316644/720c4d83-08fb-4f50-a4b4-2a2bda33b61c)
+
 
 ## Table of Contents
 
