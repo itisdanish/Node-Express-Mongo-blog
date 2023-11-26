@@ -4,11 +4,22 @@ const bcrypt = require('bcrypt')
 // Define the User Schema using Mongoose
 const UserSchema = new mongoose.Schema({
     // Field for storing the username of the user
-    username: String,
+    username: {
+        type: String,
+        required: true,
+        unique: true
+    },
     // Field for storing the email address of the user
-    email: String,
+    email: {
+        type: String,
+        required: true,
+        unique: true
+    },
     // Field for storing the password of the user
-    password: String
+    password: {
+        type: String,
+        required: true
+    },
 });
 
 UserSchema.pre('save', function(next){

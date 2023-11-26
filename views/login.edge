@@ -1,0 +1,72 @@
+@layout('layouts.app')
+
+@section('content')
+
+       <!-- Page Header-->
+       <header class="masthead" style="background-image: url('/img/contact-bg.jpg')">
+        <div class="container position-relative px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    <div class="page-heading">
+                        <h1>Login</h1>
+                        <span class="subheading">Have questions? I have answers.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="mb-4">
+        <div class="container px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    <h1>Login here</h1>
+                    <div class="my-5">
+                        {{--  <form action="/posts/store" method="POST" enctype="multipart/form-data">
+                            <input class="form-control" type="text" name="username" placeholder="Usernam"><br>
+                            <input class="form-control" type="text" name="title" placeholder="Title"><br>
+                            <input class="form-control" type="text" name="subtitle" placeholder="Subtitle"><br>
+                            <textarea class="form-control" name="content" id="content" name="content" cols="30" rows="10"></textarea><br>
+                            <input type="file" name="image" class="form-control">
+                            <button class="btn btn-warning">Create Post</button>
+                        </form>  --}}
+                        <form id="contactForm" action="/users/login" method="POST">
+                            <div class="form-floating">
+                                <input class="form-control" id="title" type="email" name="email" placeholder="Enter your Title..." data-sb-validations="required" />
+                                <label for="email">Email</label>
+                                <div class="invalid-feedback" data-sb-feedback="name:required">A Title is required.</div>
+                            </div>
+                            <div class="form-floating">
+                                <input class="form-control" id="subtitle" name="password" type="password" placeholder="Enter your password..." data-sb-validations="required,email" />
+                                <label for="password">password</label>
+                                <div class="invalid-feedback" data-sb-feedback="email:required">A Subtitle is required.</div>
+                            </div>
+                            
+                            <br />
+                            <!-- Submit success message-->
+                            <!---->
+                            <!-- This is what your users will see when the form-->
+                            <!-- has successfully submitted-->
+                            {{--  <div class="d-none" id="submitSuccessMessage">
+                                <div class="text-center mb-3">
+                                    <div class="fw-bolder">Form submission successful!</div>
+                                    To activate this form, sign up at
+                                    <br />
+                                    <a href="https://startbootstrap.com/solution/contact-forms">https://startbootstrap.com/solution/contact-forms</a>
+                                </div>
+                            </div>  --}}
+                            <!-- Submit error message-->
+                            <!---->
+                            <!-- This is what your users will see when there is-->
+                            <!-- an error submitting the form-->
+                            {{--  <div class="d-none" id="submitErrorMessage"><div class="text-center text-danger mb-3">Error sending message!</div></div>  --}}
+                            <!-- Submit Button-->
+                            <button class="btn btn-primary text-uppercase" id="submitButton" type="submit">Login</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+@endsection

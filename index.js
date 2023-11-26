@@ -6,6 +6,7 @@ const bodyParser = require('body-parser')
 const fileUpload = require('express-fileupload')
 const Post = require('./database/models/Post')
 const { networkInterfaces } = require('os')
+const expressSession = require('express-session')
 
 const createPostController = require('./controllers/createPost')
 const homePageController = require('./controllers/homePage')
@@ -13,8 +14,13 @@ const storePostController = require('./controllers/storePost')
 const getPostController = require('./controllers/getPost')
 const registerController = require('./controllers/createUser')
 const storeUserController = require('./controllers/storeUser')
+const loginController = require('./controllers/login')
+const loginNewController = require('./controllers/loginUser')
 
-const app = express()
+const app = new express()
+app.use(expressSession({
+  secret:'secret'
+}))
 
 // Connect to MongoDB
 mongoose.connect('mongodb://localhost/blog-test-data')
@@ -49,6 +55,10 @@ app.get('/post/:id', getPostController)
 app.get('/auth/register', registerController)
 
 app.post('/users/register', storeUserController)
+
+app.get('/auth/login', loginController)
+app.post('/users/login',loginNewController)
+
 // Catch-all route for unknown paths, renders the 'about' page
 app.get('*', (req, res) => {
     res.render('about')
