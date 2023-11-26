@@ -11,6 +11,8 @@ const createPostController = require('./controllers/createPost')
 const homePageController = require('./controllers/homePage')
 const storePostController = require('./controllers/storePost')
 const getPostController = require('./controllers/getPost')
+const registerController = require('./controllers/createUser')
+const storeUserController = require('./controllers/storeUser')
 
 const app = express()
 
@@ -43,6 +45,10 @@ app.post('/posts/store', storePostController);
 // Route for displaying a single post based on its ID
 app.get('/post/:id', getPostController)
 
+// Route for displaying the form to create a new user
+app.get('/auth/register', registerController)
+
+app.post('/users/register', storeUserController)
 // Catch-all route for unknown paths, renders the 'about' page
 app.get('*', (req, res) => {
     res.render('about')
