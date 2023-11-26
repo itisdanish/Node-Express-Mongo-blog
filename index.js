@@ -5,6 +5,12 @@ const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
 const fileUpload = require('express-fileupload')
 const Post = require('./database/models/Post')
+const { networkInterfaces } = require('os')
+
+const createPostController = require('./controllers/createPost')
+const homePageController = require('./controllers/homePage')
+const storePostController = require('./controllers/storePost')
+const getPostController = require('./controllers/getPost')
 
 const app = express()
 
@@ -19,60 +25,29 @@ app.use(expressEdge)
 
 app.set('views', `${__dirname}/views`)
 
+const validateCreatPostMiddleware = (req, res, next)=>{
+    console.log('Middleware Test')
+    if(!req.files || !req.files.image || !req.body.title || !req.body.subtitle || !req.body.content || !req.body.username){
+        return res.redirect('/post/new')
+    }
+    next()
+}
+
+app.use('/posts/store', validateCreatPostMiddleware)
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended : true }))
 
 // Route for displaying all posts on the home page
-app.get('/', async (req, res) => {
-    const posts = await Post.find({})
-    console.log(posts)
-    res.render('index', {
-        posts
-    })
-})
+app.get('/', homePageController)
 
 // Route for displaying the form to create a new post
-app.get('/post/new', (req, res) => {
-    res.render('create')
-})
+app.get('/post/new', createPostController)
 
 // Route for handling the creation of a new post
-app.post('/posts/store', (req, res) => {
-    const { image } = req.files
-
-    // Move the uploaded image to the specified directory
-    image.mv(path.resolve(__dirname, 'public/posts', image.name), (error) => {
-        // Create a new post with the data from the request
-        Post.create({
-            ...req.body,
-            image: `/posts/${image.name}`
-        })
-        .then(post => {
-            console.log(`Created : ${post}`);
-            res.redirect('/');
-        })
-        .catch(error => {
-            console.log(`Fault : ${error}`);
-        });
-    })
-});
+app.post('/posts/store', storePostController);
 
 // Route for displaying a single post based on its ID
-app.get('/post/:id', async (req, res) => {
-    const post = await Post.findById(req.params.id)
-    res.render('post', {
-        post
-    })
-})
-
-// Routes for other pages
-app.get('/contact', (req, res) => {
-    res.render('contact')
-})
-
-app.get('/about', (req, res) => {
-    res.render('about')
-})
+app.get('/post/:id', getPostController)
 
 // Catch-all route for unknown paths, renders the 'about' page
 app.get('*', (req, res) => {
