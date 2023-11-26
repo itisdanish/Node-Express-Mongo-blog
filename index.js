@@ -25,15 +25,9 @@ app.use(expressEdge)
 
 app.set('views', `${__dirname}/views`)
 
-const validateCreatPostMiddleware = (req, res, next)=>{
-    console.log('Middleware Test')
-    if(!req.files || !req.files.image || !req.body.title || !req.body.subtitle || !req.body.content || !req.body.username){
-        return res.redirect('/post/new')
-    }
-    next()
-}
+const storeMiddleware = require('./middleware/storePost')
 
-app.use('/posts/store', validateCreatPostMiddleware)
+app.use('/posts/store', storeMiddleware)
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended : true }))
 
