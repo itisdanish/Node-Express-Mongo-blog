@@ -4,10 +4,10 @@ const expressEdge = require('express-edge')
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
 const fileUpload = require('express-fileupload')
-const Post = require('./database/models/Post')
 const { networkInterfaces } = require('os')
 const expressSession = require('express-session')
 
+// Import controllers
 const createPostController = require('./controllers/createPost')
 const homePageController = require('./controllers/homePage')
 const storePostController = require('./controllers/storePost')
@@ -33,11 +33,13 @@ app.use(expressEdge)
 
 app.set('views', `${__dirname}/views`)
 
+// Middleware for handling the post creation process
 const storeMiddleware = require('./middleware/storePost')
 
+// Apply the storeMiddleware for the '/posts/store' route
 app.use('/posts/store', storeMiddleware)
 app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended : true }))
+app.use(bodyParser.urlencoded({ extended: true }))
 
 // Route for displaying all posts on the home page
 app.get('/', homePageController)
@@ -54,10 +56,14 @@ app.get('/post/:id', getPostController)
 // Route for displaying the form to create a new user
 app.get('/auth/register', registerController)
 
+// Route for handling the registration of a new user
 app.post('/users/register', storeUserController)
 
+// Route for displaying the login form
 app.get('/auth/login', loginController)
-app.post('/users/login',loginNewController)
+
+// Route for handling the login process
+app.post('/users/login', loginNewController)
 
 // Catch-all route for unknown paths, renders the 'about' page
 app.get('*', (req, res) => {
