@@ -5,7 +5,7 @@ module.exports = async (req, res) => {
     try {
         // Extract email and password from the request body
         const { email, password } = req.body;
-
+ 
         // Find a user in the database based on the provided email
         const user = await User.findOne({ email: email });
 
